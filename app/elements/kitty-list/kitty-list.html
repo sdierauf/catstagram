@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
   <template>
     <template is="dom-repeat" items="{{items}}">
-      <paper-kittypic>{{item}}</paper-kittypic>
+      <paper-kittypic imgsrc="{{item}}"></paper-kittypic>
     </template>
   </template>
 
@@ -40,12 +40,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         ready: function() {
         this.items = [
-            'Responsive Web App boilerplate',
-            'Iron Elements and Paper Elements',
-            'End-to-end Build Tooling (including Vulcanize)',
-            'Unit testing with Web Component Tester',
-            'Routing with Page.js',
-            'Offline support with the Platinum Service Worker Elements'
+            'http://www.clker.com/cliparts/f/5/6/f/1352194206656819167small_ragdoll_kitten-md.png',
+            'http://cdn.cutestpaw.com/wp-content/uploads/2012/05/l-Small-Kitten.jpg'
             ];
         }
       });

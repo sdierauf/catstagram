@@ -7,7 +7,7 @@
       
     </style>
   <template>
-      <img src="http://www.clker.com/cliparts/f/5/6/f/1352194206656819167small_ragdoll_kitten-md.png">
+      <img src="{{imgsrc}}" >
       <content></content>
   </template>
 </dom-module>
@@ -17,11 +17,11 @@
       is: 'paper-kittypic',
 
       properties: {
-        greeting: {
-          type: String,
-          value: 'Welcome',
-          notify: true
-        }
+        this.imgsrc: String
+      },
+
+      created: function() {
+        console.log(this.properties.imgsrc)
       }
     });
     })();
