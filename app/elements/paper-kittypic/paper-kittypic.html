@@ -4,10 +4,9 @@
         display: block;
       }
 
-      
     </style>
   <template>
-      <img src="{{imgsrc}}" >
+      <img src="{{imgsrc}}">
       <content></content>
   </template>
 </dom-module>
@@ -17,11 +16,9 @@
       is: 'paper-kittypic',
 
       properties: {
-        this.imgsrc: String
-      },
-
-      created: function() {
-        console.log(this.properties.imgsrc)
+        imgsrc: {
+          type: String
+        }
       }
     });
     })();
