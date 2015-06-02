@@ -1,0 +1,28 @@
+<dom-module id="kittypic">
+    <style>
+      :host {
+        display: block;
+      }
+
+      
+    </style>
+  <template>
+    <paper-material>
+    </paper-material>
+  </template>
+</dom-module>
+  <script>
+  (function() {
+    Polymer({
+      is: 'paper-kittylist',
+
+      properties: {
+        greeting: {
+          type: String,
+          value: 'Welcome',
+          notify: true
+        }
+      }
+    });
+    })();
+  </script>

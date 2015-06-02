@@ -1,0 +1,51 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<dom-module id="kitty-list">
+    <style>
+      paper-material {
+        height: 400px;
+        max-width: 640px;
+        margin: 16px auto;
+        background-color: #fff;
+      }
+    </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <paper-kittypic>{{item}}</paper-kittypic>
+      </template>
+    </ul>
+  </template>
+
+</dom-module>
+  <script>
+    (function () {
+      Polymer({
+        is: 'kitty-list',
+        properties: {
+          items: {
+            type: Array,
+            notify: true,
+          }
+        },
+        ready: function() {
+        this.items = [
+            'Responsive Web App boilerplate',
+            'Iron Elements and Paper Elements',
+            'End-to-end Build Tooling (including Vulcanize)',
+            'Unit testing with Web Component Tester',
+            'Routing with Page.js',
+            'Offline support with the Platinum Service Worker Elements'
+            ];
+        }
+      });
+    })();
+  </script>
