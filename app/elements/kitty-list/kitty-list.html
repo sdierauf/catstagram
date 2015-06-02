@@ -9,20 +9,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <dom-module id="kitty-list">
-    <style>
-      paper-material {
-        height: 400px;
-        max-width: 640px;
-        margin: 16px auto;
-        background-color: #fff;
-      }
-    </style>
+  <style>
+    paper-kittypic {
+      height: 400px;
+      max-width: 640px;
+      margin: 16px auto;
+      background-color: #fff;
+    }
+    
+    :host{
+      display: block;
+    }
+  </style>
   <template>
-    <ul>
-      <template is="dom-repeat" items="{{items}}">
-        <paper-kittypic>{{item}}</paper-kittypic>
-      </template>
-    </ul>
+    <template is="dom-repeat" items="{{items}}">
+      <paper-kittypic>{{item}}</paper-kittypic>
+    </template>
   </template>
 
 </dom-module>
