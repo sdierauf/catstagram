@@ -14,5 +14,5 @@ see `db.json` for example of how api looks
 
 * fake out api
 * wire up app to use api
-* 
+* firebase
 
