@@ -78,8 +78,10 @@
               <span>{{item.comment}}</span>
             </div>
           </template>
-          <paper-input placeholder="Add a comment:">
-            <input is="iron-input" >
+          <paper-input 
+            placeholder="Add a comment:" 
+            value="{{submitComment}}">
+            <input is="iron-input">
           </paper-input>
         </div>
       </div>
@@ -90,7 +92,19 @@
 
       is: 'kitty-pic',
 
+      ready: function () {
+        this.commentString = "";
+      },
+
+      submitComment: function(comment) {
+        console.log("gonna submit: " + comment);
+      },
+
       properties: {
+        commentString: {
+          type: String
+        },
+
         kittyData: {
           type: Object
         }
