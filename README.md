@@ -8,21 +8,7 @@ Run setup.sh `sh setup.sh`
 
 using json server atm
 
-{
-  photos : [
-    {
-      url: "some url"
-      descriptor: "yay a kitty"
-      user: {name: "username", photo: "some url"}
-      comments: [
-        {user: {name: "username", photo: "some url"}
-         comment: "comment string"},
-        {user: {name: "username", photo: "some url"}
-         comment: "comment string"}
-      ]
-    }
-  ]
-}
+see `db.json` for example of how api looks
 
 ### Todo
 
