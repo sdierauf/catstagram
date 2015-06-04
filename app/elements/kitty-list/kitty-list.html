@@ -11,8 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="kitty-list">
   <style>
     kitty-pic {
-      height: 400px;
-      max-width: 640px;
+      height: 640px;
+      max-width: 500px;
       margin: 16px auto;
       background-color: #fff;
     }
@@ -22,9 +22,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   </style>
   <template>
+
+    <iron-ajax
+    auto
+    url="http://localhost:4000/photos"
+    handle-as="json"
+    on-response="handleResponse"
+    debounce-duration="300"></iron-ajax>
+
     <template is="dom-repeat" items="{{items}}">
-      <kitty-pic imgsrc="{{item}}">
-      <span>{{item}}</span>
+      <kitty-pic kitty-data="{{item}}">
+      <span>{{item.url}}</span>
       </kitty-pic>
     </template>
   </template>
@@ -40,11 +48,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true,
           }
         },
+
+        handleResponse: function(request) {
+          console.log(request.detail.response);
+          this.items = request.detail.response;
+        },
+
         ready: function() {
-        this.items = [
-            'http://www.clker.com/cliparts/f/5/6/f/1352194206656819167small_ragdoll_kitten-md.png',
-            'http://cdn.cutestpaw.com/wp-content/uploads/2012/05/l-Small-Kitten.jpg',
-            ];
+          this.items = [
+              'http://www.clker.com/cliparts/f/5/6/f/1352194206656819167small_ragdoll_kitten-md.png',
+              'http://cdn.cutestpaw.com/wp-content/uploads/2012/05/l-Small-Kitten.jpg',
+              ];
         }
       });
     })();
