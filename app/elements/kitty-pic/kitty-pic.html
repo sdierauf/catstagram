@@ -34,7 +34,6 @@
         width: 40px;
       }
       .desc span {
-        font-size: ;
         float: right;
         width: 88%;
       }
@@ -59,9 +58,30 @@
       .comment span {
         margin-right: 10px;
       }
+      
+      .add-comment paper-input {
+        display: inline-block;
+        width: 75%;
+      }
+      
+      .add-comment paper-button {
+        display: inline-block;
+        width: 20%;
+        margin-left: 13px;
+      }
 
     </style>
   <template>
+    <!-- ajax for submitting comment -->
+    <iron-ajax
+      id="commentRequest"
+      url=""
+      handle-as="json"
+      on-response="commentResponse"
+      debounce-duration="300">
+   </iron-ajax>
+    
+    
       <div class="container">
         <img class="mainpic" src="{{kittyData.url}}">
         <div class="desc">
@@ -78,26 +98,47 @@
               <span>{{item.comment}}</span>
             </div>
           </template>
-          <paper-input 
-            placeholder="Add a comment:" 
-            value="{{submitComment}}">
-            <input is="iron-input">
-          </paper-input>
+          <div class="add-comment">
+            <paper-input
+              id="ughid" 
+              placeholder="Add a comment:"
+              value="{{commentString}}">
+              <input is="iron-input">
+            </paper-input>
+            <paper-button raised on-tap="sendComment">Send</paper-button>
+          </div>
+          <div class="clear"></div>
         </div>
       </div>
   </template>
 </dom-module>
   <script>
     Polymer({
-
+      
       is: 'kitty-pic',
 
       ready: function () {
         this.commentString = "";
+        this.$.commentRequest.url = "localhost:4000/photos/" + this.kittyData.id + "/comments/";
       },
-
-      submitComment: function(comment) {
-        console.log("gonna submit: " + comment);
+      
+      sendComment: function (event, detail, sender) {
+        console.log(this.$.ughid.value);
+        var newComment = {
+          id : 10,
+          user : {
+            name : "dumbo",
+            photo : "http://img.moviepilot.com/assets/tarantulaV2/project_images_square_big/1369903904_grumpy_cat-oo.jpg" 
+          },
+          comment: this.$.ughid.value
+        };
+        this.$.commentRequest.method = "POST";
+        this.$.commentRequest.body = JSON.stringify(newComment);
+        this.$.commentRequest.generateRequest();
+      },
+      
+      commentResponse : function () {
+        console.log("got a response!!");
       },
 
       properties: {
