@@ -1,4 +1,8 @@
-# KittyBase
+# Catstagram
+
+### Intstall
+
+Run setup.sh `sh setup.sh`
 
 ### API design
 
@@ -20,8 +24,9 @@ using json server atm
   ]
 }
 
-## Todo
+### Todo
 
 * fake out api
 * wire up app to use api
 * 
+
