@@ -68,8 +68,7 @@
       
       .add-comment paper-button {
         display: inline-block;
-        width: 20%;
-        margin-left: 13px;
+        width: 15%;
       }
 
     </style>
@@ -119,29 +118,6 @@
       
       is: 'kitty-pic',
 
-      ready: function () {
-        this.commentString = "";
-        this.$.commentRequest.url = "localhost:4000/photos/" + this.kittyData.id + "/comments/";
-      },
-      
-      sendComment: function (event, detail, sender) {
-        console.log(this.$.ughid.value);
-        var newComment = {
-          id : 10,
-          user : {
-            name : "dumbo",
-            photo : "http://img.moviepilot.com/assets/tarantulaV2/project_images_square_big/1369903904_grumpy_cat-oo.jpg" 
-          },
-          comment: this.$.ughid.value
-        };
-        this.$.commentRequest.method = "POST";
-        this.$.commentRequest.body = JSON.stringify(newComment);
-        this.$.commentRequest.generateRequest();
-      },
-      
-      commentResponse : function () {
-        console.log("got a response!!");
-      },
 
       properties: {
         commentString: {

@@ -23,12 +23,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
   <template>
 
-    <iron-ajax
-    auto
-    url="http://localhost:4000/photos"
-    handle-as="json"
-    on-response="handleResponse"
-    debounce-duration="300"></iron-ajax>
+    <firebase-collection
+      limit-to-first="3"
+      location="https://resplendent-inferno-164.firebaseIO.com/photos"
+      data="{{items}}"></firebase-collection>
 
     <template is="dom-repeat" items="{{items}}">
       <kitty-pic kitty-data="{{item}}">
@@ -46,11 +44,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Array,
             notify: true,
           }
-        },
-
-        handleResponse: function(request) {
-          console.log(request.detail.response);
-          this.items = request.detail.response;
         },
         
         
