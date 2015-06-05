@@ -1,11 +1,15 @@
 <dom-module id="kitty-pic">
     <style>
-      :host {
-        display: block;
+      
+      .wrapper {
+        display:block;
+        min-height: 540px;
+        max-width: 500px;
+        margin: 16px auto;
+        background-color: #fff;
       }
-
+      
       .container {
-        display: block;
         width: 90%;
         margin: 10px auto;
         padding: 20px 0;
@@ -32,11 +36,11 @@
       }
 
       .desc img {
-        float: left;
+        display: inline-block;
         width: 40px;
       }
       .desc span {
-        float: right;
+        display: inline-block;
         width: 88%;
       }
 
@@ -73,16 +77,7 @@
 
     </style>
   <template>
-    <!-- ajax for submitting comment -->
-    <iron-ajax
-      id="commentRequest"
-      url=""
-      handle-as="json"
-      on-response="commentResponse"
-      debounce-duration="300">
-   </iron-ajax>
-    
-    
+    <div class="wrapper">
       <div class="container">
         <img class="mainpic" src="{{kittyData.url}}">
         <div class="desc">
@@ -93,7 +88,7 @@
         <div class="clear"></div>
         <hr>
         <div class="comments">
-          <template is="dom-repeat" items="{{kittyData.comments}}">
+          <template is="dom-repeat" items="{{vals(kittyData.comments)}}">
             <div class="comment">
               <span><a href="{{item.user.photo}}">{{item.user.name}}</a></span>
               <span>{{item.comment}}</span>
@@ -101,23 +96,57 @@
           </template>
           <div class="add-comment">
             <paper-input
-              id="ughid" 
+              id="commentInput"
               placeholder="Add a comment:"
               value="{{commentString}}">
               <input is="iron-input">
             </paper-input>
-            <paper-button raised on-tap="sendComment">Send</paper-button>
+            <paper-button on-tap="sendComment">Send</paper-button>
           </div>
           <div class="clear"></div>
         </div>
       </div>
+    </div>
   </template>
 </dom-module>
   <script>
     Polymer({
       
       is: 'kitty-pic',
+      
+      vals: function(input) {
+        var stuff = Object.keys(input).map(function(k){return input[k];});
+        console.log(stuff);
+        return stuff;
+      },
 
+      sendComment: function () {
+        console.log(this.commentString);
+        if (this.commentString.length == 0) {
+          return;
+        }
+        console.log(this.kittyData.id);
+        var endpoint = "https://resplendent-inferno-164.firebaseio.com/photos/" + this.kittyData.id + "/comments";
+        var dumbcomment = {
+          user : {
+            name: "plswork",
+            photo: "http://www.babylonpuzzles.com/6866-thickbox_default/500-pcs---curious-kitten---square-by-ravensburger.jpg"
+          },
+          comment : this.commentString,
+        };
+        
+        var ref = new Firebase(endpoint);
+        ref.push(dumbcomment);
+        // console.log(Firebase);
+        
+        //clear the commentString
+        this.commentString = "";
+      },
+      
+      handleResponse: function (res) {
+        console.log("got a response!");
+        console.log(res);
+      },
 
       properties: {
         commentString: {

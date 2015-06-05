@@ -1,0 +1,30 @@
+<dom-module id="app-globals">
+  <script>
+  (function() {
+    // these variables are shared by all instances of app-globals
+    var values = {
+      firstName: 'John',
+      lastName: 'Smith'
+    }
+    
+    Polymer({
+      
+      is: "app-globals",
+      
+      properties: {
+        firebase: {
+          type: Object
+        },
+        values: {
+          type: Array
+        }
+      },
+      
+      ready: function() {
+        // make global values available on instance.
+        this.values = values;
+      }
+    });
+  })();
+  </script>
+</dom-module>

@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="kitty-list">
   <style>
     kitty-pic {
+      display:block;
       min-height: 540px;
       max-width: 500px;
       margin: 16px auto;
@@ -20,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :host{
       display: block;
     }
+    
   </style>
   <template>
 
@@ -39,6 +41,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     (function () {
       Polymer({
         is: 'kitty-list',
+        
+        vals: function(input) {
+          var stuff = Object.keys(input).map(function(k){return input[k];});
+          console.log(stuff);
+          return stuff;
+        },
+      
         properties: {
           items: {
             type: Array,
