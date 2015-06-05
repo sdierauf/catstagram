@@ -1,0 +1,184 @@
+<dom-module id="polygram-element">
+    <style>
+      
+      .wrapper {
+        display:block;
+        min-height: 540px;
+        max-width: 500px;
+        margin: 16px auto;
+        background-color: #fff;
+      }
+      
+      .container {
+        width: 90%;
+        margin: 10px auto;
+        padding: 20px 0;
+      }
+
+      .mainpic {
+        box-sizing: border-box;
+        width: 100%;
+        border-style: solid;
+        border-color: #fff;
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 8px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 3px -2px rgba(0, 0, 0, 0.4);
+        margin-bottom: 10px;
+      }
+      .profile {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+      }
+
+      hr {
+        background-color: rgb(120, 120, 120);
+      }
+
+      .desc img {
+        display: inline-block;
+        width: 40px;
+      }
+      .desc span {
+        display: inline-block;
+        width: 88%;
+      }
+
+      .clear {
+        clear: both;
+      }
+
+      a {
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .comment { 
+        margin: 10px 0px;
+      }
+
+      .comment span {
+        margin-right: 10px;
+      }
+      
+      .add-comment paper-input {
+        display: inline-block;
+        width: 75%;
+      }
+      
+      .add-comment paper-button {
+        display: inline-block;
+        width: 15%;
+      }
+
+    </style>
+  <template>
+    <div class="wrapper">
+      <div class="container">
+        <img class="mainpic" src="{{data.url}}">
+        <div class="desc">
+          <img class="profile" src="{{data.user.photo}}">
+          <span class="username"><a href="{{data.user.photo}}">{{data.user.name}}</a></span>
+          <span class="description-text">{{data.descriptor}}</span>
+        </div>
+        <div class="clear"></div>
+        <hr>
+        <div class="comments">
+          <template is="dom-repeat" items="{{vals(data.comments)}}">
+            <div class="comment">
+              <span><a href="{{item.user.photo}}">{{item.user.name}}</a></span>
+              <span>{{item.comment}}</span>
+            </div>
+          </template>
+          <div class="add-comment">
+            <paper-input
+              id="commentInput"
+              placeholder="Add a comment:"
+              value="{{commentString}}">
+              <input is="iron-input">
+            </paper-input>
+            <paper-button on-tap="sendComment">Send</paper-button>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+  <script>
+    Polymer({
+      
+      is: 'polygram-element',
+      
+      vals: function(input) {
+        var stuff = Object.keys(input).map(function(k){return input[k];});
+        console.log(stuff);
+        return stuff;
+      },
+
+      sendComment: function () {
+        console.log(this.commentString);
+        if (this.commentString.length == 0) {
+          return;
+        }
+        console.log(this.data.id);
+        var endpoint = "https://resplendent-inferno-164.firebaseio.com/photos/" + this.data.id + "/comments";
+        var dumbcomment = {
+          user : {
+            name: "plswork",
+            photo: "http://www.babylonpuzzles.com/6866-thickbox_default/500-pcs---curious-kitten---square-by-ravensburger.jpg"
+          },
+          comment : this.commentString,
+        };
+        
+        var ref = new Firebase(endpoint);
+        ref.push(dumbcomment);
+        // console.log(Firebase);
+        
+        //clear the commentString
+        this.commentString = "";
+      },
+      
+      handleResponse: function (res) {
+        console.log("got a response!");
+        console.log(res);
+      },
+
+      properties: {
+        commentString: {
+          type: String
+        },
+
+        data: {
+          type: Object
+        }
+        /*
+          looks like 
+          {
+            "id": 1,
+            "url": "http://www.babylonpuzzles.com/6866-thickbox_default/500-pcs---curious-kitten---square-by-ravensburger.jpg",
+            "descriptor": "yay a kitty",
+            "user": {
+              "name": "meowmeow",
+              "photo": "http://avaflemingcom.ipage.com/wp-content/uploads/edd/2014/01/kim-kardashian-kitten-square-w352.jpg"
+            },
+            "comments": [
+              {
+                "id": 1,
+                "user": {
+                  "name": "meowmeow",
+                  "photo": "http://avaflemingcom.ipage.com/wp-content/uploads/edd/2014/01/kim-kardashian-kitten-square-w352.jpg"
+                },
+                "comment": "wow that is a hot ass picture"
+              }
+            ]
+          }
+        */
+      }
+
+    });
+  </script>

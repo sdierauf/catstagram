@@ -1,0 +1,41 @@
+<dom-module id="polygram-controller">
+  <style>
+    
+    :host{
+      display: block;
+    }
+    
+  </style>
+  <template>
+
+    <firebase-collection
+      location="https://resplendent-inferno-164.firebaseIO.com/photos"
+      data="{{items}}"></firebase-collection>
+    <polygram-user></polygram-user>
+    <template is="dom-repeat" items="{{items}}">
+      <polygram-element data="{{item}}">
+      </polygram-element>
+    </template>
+  </template>
+
+</dom-module>
+  <script>
+    (function () {
+      Polymer({
+        is: 'polygram-controller',
+        
+        getObjectValues: function(input) {
+          return Object.keys(input).map(function(k){return input[k];});
+        },
+      
+        properties: {
+          items: {
+            type: Array,
+            notify: true,
+          }
+        },
+        
+        
+      });
+    })();
+  </script>
