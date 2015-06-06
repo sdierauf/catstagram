@@ -11,7 +11,9 @@
     <firebase-collection
       location="https://resplendent-inferno-164.firebaseIO.com/photos"
       data="{{items}}"></firebase-collection>
-    <polygram-user></polygram-user>
+    <polygram-user 
+      firebase-user-endpoint="https://resplendent-inferno-164.firebaseIO.com/users">
+    </polygram-user>
     <template is="dom-repeat" items="{{items}}">
       <polygram-element data="{{item}}">
       </polygram-element>
@@ -31,7 +33,12 @@
         properties: {
           items: {
             type: Array,
-            notify: true,
+            notify: true
+          },
+          
+          userHash: { // for comments?
+            type: String,
+            notify: true
           }
         },
         

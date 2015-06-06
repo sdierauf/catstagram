@@ -10,39 +10,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="polygram-user">
   <style>
-    
+    .container {
+      background-color: #ddd;
+      width: 50%;
+      min-width: 500px;
+      margin: 10px auto;
+      padding: 20px;
+    }
+    paper-input {
+      display: inline-block;
+      width: 40%;
+    }
   </style>
   
   <template>
-    <paper-input
-      value="{{userName}}"
-      placeholder="Put in your username:">
-      <input is="iron-input">
-    </paper-input>
-    
-    <paper-input
-      value="{{userPhoto}}"
-      placeholder="Paste link to photo of you:">
-      <input is="iron-input">
-    </paper-input>
+    <div class="container">
+      <paper-input
+        value="{{userName}}"
+        placeholder="Put in your username:">
+        <input is="iron-input">
+      </paper-input>
+      
+      <paper-input
+        value="{{userPhoto}}"
+        placeholder="Paste link to photo of you:">
+        <input is="iron-input">
+      </paper-input>
+      <paper-button
+        onclick="{{tryCreateUser}}">Log in</paper-button>
+    </div>
   </template>
 
 </dom-module>
   <script>
     (function () {
       Polymer({
+        
         is: 'polygram-user',
         
         properties: {
           userName: {
             type: String
+          },
+          userPhoto: {
+            type: String
+          },
+          firebaseUserEndpoint: {
+            type: String
           }
         },
         
-        properties: {
-          userPhoto: {
-            type: String
-          }
+        tryCreateUser: function () {
+          var userRef = Firebase(this.firebaseUserEndpoint);
+          // check if user exists, if it does then push this current user
         }
         
         
